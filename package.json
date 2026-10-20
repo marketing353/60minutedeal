@@ -1,0 +1,17 @@
+{
+  "name": "60minutedeal",
+  "version": "1.0.0",
+  "description": "60 Minute Car Deals — Stop shopping. Start driving.",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
