@@ -66,7 +66,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname === '/') pathname = '/index.html';
-  const file = path.join(ROOT, pathname);
+  let file = path.join(ROOT, pathname);
+  // cleanUrls: /thank-you -> thank-you.html, matching vercel.json
+  if (!fs.existsSync(file) && fs.existsSync(file + '.html')) file += '.html';
   if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     return res.end('Not found');

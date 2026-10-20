@@ -47,6 +47,9 @@
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
   document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  // autoConfig enables the first-party _fbp cookie plus automatic button and
+  // form interaction detection — the widest client-side signal the pixel offers.
+  fbq('set', 'autoConfig', true, '572850585616970');
   fbq('init', '572850585616970');
   fbq('track', 'PageView');
 </script>
@@ -538,6 +541,8 @@ input::placeholder{color:#8a978e}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const KEY = 'cmcd_request_v3';
+const LEAD_KEY = 'cmcd_lead_ok';
+const MATCH_KEY = 'cmcd_lead_match';
 const T = (name, label, ph, type, req, mode, ac) => ({ k: 'text', name, label, ph: ph || '', type: type || 'text', req: req !== false, mode: mode || 'text', ac: ac || 'off' });
 const C = (name, label, options) => ({ k: 'choice', name, label, options });
 const SCREENS = [
@@ -624,16 +629,29 @@ class Component extends DCLogic {
         return this.setState({ sending: false, error: out.error || 'We could not send your request. Please try again.' });
       }
       try { localStorage.removeItem(KEY); } catch (e) {}
-      // Conversion events fire only on a confirmed send.
-      try { if (window.fbq) window.fbq('track', 'Lead'); } catch (e) {}
+      // One-time token: /thank-you consumes it and fires the conversion tags
+      // there. Without it, a refresh or a direct visit would report a lead.
       try {
-        if (window.gtag) window.gtag('event', 'conversion', {
-          send_to: 'AW-17527160007/SlgWCPOkgKgcEMf5zKVB',
-          value: 1.0,
-          currency: 'USD'
-        });
+        sessionStorage.setItem(LEAD_KEY, String(Date.now()));
+        // Advanced Matching fields handed to /thank-you, which passes them to
+        // fbq('init', ...). The pixel SHA-256 hashes them in the browser before
+        // anything leaves the device. Carried in sessionStorage, never in the
+        // URL — personal data must not ride in a query string.
+        const nm = String(payload.name || '').trim().split(/\s+/);
+        sessionStorage.setItem(MATCH_KEY, JSON.stringify({
+          em: payload.email, ph: payload.phone,
+          fn: nm[0] || '', ln: nm.length > 1 ? nm[nm.length - 1] : '',
+          ct: payload.city, st: payload.region, zp: payload.postal, country: 'us',
+          // Shared id so a later Conversions API send can be de-duplicated
+          // against this browser event instead of double-counted.
+          eventId: 'lead.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10)
+        }));
       } catch (e) {}
-      this.setState({ sending: false, done: true });
+      // The in-page confirmation stays as a fallback for the rare case where
+      // the navigation is blocked, so the visitor is never left on a dead form.
+      this.setState({ sending: false, done: true }, () => {
+        try { window.location.assign('/thank-you'); } catch (e) {}
+      });
     } catch (e) {
       this.setState({ sending: false, error: 'Network problem — your answers are safe. Please try again.' });
     }
