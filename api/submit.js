@@ -107,14 +107,22 @@ function buildAdf(c) {
   const n = splitName(c.name);
 
   // ADF vehicle attributes
-  const interest = /lease/i.test(c.purchase) ? 'lease' : 'buy';
+  // A Spanish lead stores its answers as Spanish labels, so these must match
+  // both languages — otherwise every /es lead files as interest="buy" with no
+  // condition at all.
+  const interest = /lease|arrendamiento/i.test(c.purchase) ? 'lease' : 'buy';
   let status = '';
-  if (/^new$/i.test(c.condition)) status = 'new';
-  else if (/pre-owned|used/i.test(c.condition)) status = 'used';
+  if (/^(new|nuevo)$/i.test(c.condition)) status = 'new';
+  else if (/pre-owned|used|seminuevo|usado/i.test(c.condition)) status = 'used';
 
-  const comments = COMMENT_FIELDS
-    .filter(([k]) => c[k])
-    .map(([k, label]) => `${label}: ${c[k]}`)
+  // Lead the comments with the language so whoever picks this up in CDK knows
+  // to call back in Spanish.
+  const comments = (c.lang === 'es'
+      ? ['IDIOMA / LANGUAGE: Spanish — customer submitted the Spanish form']
+      : [])
+    .concat(COMMENT_FIELDS
+      .filter(([k]) => c[k])
+      .map(([k, label]) => `${label}: ${c[k]}`))
     .join('\n');
 
   const L = [];
@@ -243,6 +251,7 @@ module.exports = async (req, res) => {
   const clean = {};
   for (const [k] of FIELDS) clean[k] = String(body[k] == null ? '' : body[k]).slice(0, 500).trim();
 
+  clean.lang = String(body.lang || 'en').slice(0, 5);
   const adf = buildAdf(clean);
 
   const rows = FIELDS
@@ -271,7 +280,7 @@ module.exports = async (req, res) => {
     from: FROM,
     to: [CRM_TO],
     reply_to: email,
-    subject: `ADF Lead - ${clean.name} - ${clean.vehicle}`,
+    subject: `ADF Lead${clean.lang === 'es' ? ' [ES]' : ''} - ${clean.name} - ${clean.vehicle}`,
     text: adf,
     attachments: [{
       filename: 'adf.xml',
@@ -283,7 +292,7 @@ module.exports = async (req, res) => {
     from: FROM,
     to: [NOTIFY_TO],
     reply_to: email,
-    subject: `Vehicle request — ${clean.name} (${clean.vehicle})`,
+    subject: `Vehicle request${clean.lang === 'es' ? ' [Spanish]' : ''} — ${clean.name} (${clean.vehicle})`,
     html,
     text,
   };

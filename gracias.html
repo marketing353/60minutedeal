@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Solicitud recibida — 60 Minute Car Deals</title>
+<meta name="description" content="Tu solicitud ya está enviada. Te responderemos por correo con vehículos y números reales.">
+<!-- Confirmation pages should never appear in search results. -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0d1a13">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@600&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11410655364"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-11410655364');
+  gtag('config', 'AW-17527160007');
+</script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  // Advanced Matching. index.html stages these in sessionStorage just before
+  // redirecting here; fbq SHA-256 hashes every value in the browser before it
+  // is sent. Supplying them raises Meta's match rate well above the cookie-only
+  // baseline, which is what the optimiser actually feeds on.
+  var MATCH = {};
+  try {
+    var m = sessionStorage.getItem('cmcd_lead_match');
+    if (m) { MATCH = JSON.parse(m) || {}; sessionStorage.removeItem('cmcd_lead_match'); }
+  } catch (e) {}
+  window.__leadEventId = MATCH.eventId || '';
+  delete MATCH.eventId;
+
+  fbq('set', 'autoConfig', true, '572850585616970');
+  fbq('init', '572850585616970', MATCH);
+  fbq('track', 'PageView');
+</script>
+
+<!--
+  Conversion events — fired ONLY for a genuine submission.
+
+  index.html writes a one-time token to sessionStorage immediately before
+  redirecting here. We consume it on arrival, so a refresh, a bookmark, a shared
+  link or a crawler reaching this URL reports nothing. Without this guard the
+  Ads account would count every one of those as a lead.
+-->
+<script>
+  (function () {
+    var KEY = 'cmcd_lead_ok', ok = false;
+    try {
+      var raw = sessionStorage.getItem(KEY);
+      if (raw) {
+        sessionStorage.removeItem(KEY);            // consume: one fire per submission
+        ok = (Date.now() - parseInt(raw, 10)) < 5 * 60 * 1000;
+      }
+    } catch (e) { /* storage blocked — stay silent rather than over-report */ }
+
+    if (!ok) return;
+
+    try {
+      // eventID lets a server-side Conversions API send for the same lead be
+      // de-duplicated against this browser event rather than counted twice.
+      fbq('track', 'Lead', { value: 1.0, currency: 'USD' },
+          window.__leadEventId ? { eventID: window.__leadEventId } : undefined);
+    } catch (e) {}
+
+    try {
+      gtag('event', 'form_submit', {
+        'form_name': '60-second vehicle request',
+        'language': 'es'
+      });
+    } catch (e) {}
+
+    try {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-17527160007/SlgWCPOkgKgcEMf5zKVB',
+        'value': 1.0,
+        'currency': 'USD'
+      });
+    } catch (e) {}
+  })();
+</script>
+
+<style>
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;min-height:100vh;display:flex;flex-direction:column;
+       background:#0d1a13;color:#eef4ea;
+       font-family:'Geist',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+  .card{width:100%;max-width:560px;background:#fff;color:#0d1a13;border-radius:20px;padding:36px 28px}
+  .mark{display:grid;place-items:center;width:64px;height:64px;margin:0 auto;
+        border-radius:50%;background:#d6ff38;font-size:30px;font-weight:700;color:#0d1a13}
+  h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+     font-size:clamp(28px,7vw,36px);line-height:1.05;letter-spacing:-.03em;
+     margin:18px 0 8px;text-align:center;text-wrap:balance}
+  .sub{margin:0;text-align:center;font-size:15px;color:#5c6b61;text-wrap:pretty}
+  ol{list-style:none;margin:26px 0 0;padding:0}
+  li{display:flex;gap:12px;padding:13px 0;font-size:14.5px;color:#3b4c41;
+     border-bottom:1px solid #eef2e9;align-items:flex-start}
+  li:last-child{border-bottom:0}
+  li b{flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;
+       background:#eef4d8;color:#4c6410;font-size:12px}
+  .home{display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:22px;
+        background:#0d1a13;color:#fff;border-radius:12px;text-decoration:none;
+        font-weight:600;font-size:15px}
+  .brand{display:flex;align-items:center;justify-content:center;gap:9px;padding:22px 20px 0;
+         font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px;
+         letter-spacing:-.02em;color:#eef4ea;text-decoration:none}
+  .brand span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;
+              background:#d6ff38;color:#0d1a13;font-size:14px;letter-spacing:-.04em}
+  footer{padding:0 20px 28px;text-align:center;font-size:12.5px;color:#8fa58c}
+</style>
+</head>
+<body>
+
+<a class="brand" href="/es"><span>60</span>Minute Car Deals</a>
+
+<main class="wrap">
+  <div class="card">
+    <div class="mark">&check;</div>
+    <h1>Tu solicitud ya está enviada.</h1>
+    <p class="sub">Ya está con nuestro equipo. Te responderemos en español al correo que nos diste.</p>
+    <ol>
+      <li><b>1</b>Leemos tu solicitud y la comparamos con vehículos reales.</li>
+      <li><b>2</b>Recibes números reales por correo, sin llamadas del concesionario hasta que tú digas.</li>
+      <li><b>3</b>Compara con el presupuesto que tú pusiste, no con el que te quieren vender.</li>
+    </ol>
+    <a class="home" href="/es">Volver a 60 Minute Car Deals</a>
+  </div>
+</main>
+
+<footer>Sin pago. Sin consulta de crédito. Sin compromiso.</footer>
+
+</body>
+</html>

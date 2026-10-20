@@ -78,6 +78,13 @@
     } catch (e) {}
 
     try {
+      gtag('event', 'form_submit', {
+        'form_name': '60-second vehicle request',
+        'language': 'en'
+      });
+    } catch (e) {}
+
+    try {
       gtag('event', 'conversion', {
         'send_to': 'AW-17527160007/SlgWCPOkgKgcEMf5zKVB',
         'value': 1.0,

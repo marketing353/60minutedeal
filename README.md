@@ -109,6 +109,35 @@ personal data must not ride in a query string. A shared `eventID` is generated s
 Conversions API send can be de-duplicated against the browser event rather than
 double-counted.
 
+## Spanish version
+
+`/es` (`es.html`) and `/gracias` (`gracias.html`) are the Spanish landing page and
+confirmation page. Both are **committed artefacts, not build output** — Vercel just
+serves them, and there is still no build step.
+
+`es.html` is generated from `index.html`:
+
+    python tools/make-es.py
+
+The script holds every translated string and reports anything in its map that no longer
+appears in `index.html`, so an edit to English copy cannot silently leave stale Spanish
+behind. **Re-run it after changing English copy**, or the two pages drift.
+
+Notes:
+
+- Both pages carry `hreflang` (en / es / x-default) and the sitemap lists both with
+  `xhtml:link` alternates, so Google treats them as one page in two languages rather
+  than duplicates competing with each other.
+- The Spanish page stores progress under `cmcd_request_v3_es`. A separate key matters:
+  a half-finished English run would otherwise restore into the Spanish form, where the
+  stored choice values match no option.
+- A Spanish lead posts `lang: 'es'`. `api/submit.js` puts `IDIOMA / LANGUAGE: Spanish`
+  first in the ADF `<comments>` and tags both subjects (`ADF Lead [ES]`,
+  `Vehicle request [Spanish]`) so CDK routes it to someone who speaks Spanish.
+- Choice answers are stored as the displayed label, so the ADF mapping matches both
+  languages — `Arrendamiento` → `interest="lease"`, `Seminuevo` → `status="used"`.
+  Without that, every Spanish lead would file as `buy` with no condition.
+
 ## Local development
 
     node dev-server.js        # http://localhost:3000
