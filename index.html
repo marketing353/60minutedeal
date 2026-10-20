@@ -99,7 +99,7 @@ input::placeholder{color:#8a978e}
 
 <main id="top">
 
-<section ref="{{ heroRef }}" style="background:#0d1a13;color:#eef4ea;overflow:hidden">
+<section id="hero" style="background:#0d1a13;color:#eef4ea;overflow:hidden">
   <div style="max-width:1120px;margin:0 auto;padding:44px 20px 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:44px;align-items:center">
     <div>
       <div style="display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#cfe0c9;border:1px solid rgba(214,255,56,.3);background:rgba(214,255,56,.08);padding:7px 12px;border-radius:100px">
@@ -280,7 +280,7 @@ input::placeholder{color:#8a978e}
   </div>
 </section>
 
-<section id="request" ref="{{ formRef }}" style="background:#0d1a13;scroll-margin-top:64px">
+<section id="request" style="background:#0d1a13;scroll-margin-top:64px">
   <div style="max-width:560px;margin:0 auto;padding:56px 16px 64px">
     <div style="text-align:center;color:#eef4ea;margin-bottom:24px;padding:0 4px">
       <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#d6ff38">Your vehicle request</div>
@@ -303,13 +303,13 @@ input::placeholder{color:#8a978e}
           <sc-if value="{{ f.isText }}">
             <label style="display:block;margin-top:16px">
               <span style="display:block;font-size:13.5px;font-weight:600;color:#33463a;margin-bottom:6px">{{ f.label }}</span>
-              <input type="{{ f.type }}" inputMode="{{ f.mode }}" placeholder="{{ f.ph }}" value="{{ f.value }}" onChange="{{ f.onChange }}" autoComplete="{{ f.ac }}" style="width:100%;min-height:52px;padding:0 14px;border:1.5px solid #ccd5c9;border-radius:12px;font:inherit;font-size:16px;color:#0d1a13;background:#fff;outline:none" style-focus="border-color:#7f9d1d;box-shadow:0 0 0 4px rgba(166,201,43,.18)">
+              <input type="{{ f.type }}" inputMode="{{ f.mode }}" placeholder="{{ f.ph }}" value="{{ f.value }}" onChange="{{ f.onChange }}" onKeyDown="{{ f.onKeyDown }}" enterKeyHint="{{ f.eh }}" autoComplete="{{ f.ac }}" style="width:100%;min-height:52px;padding:0 14px;border:1.5px solid #ccd5c9;border-radius:12px;font:inherit;font-size:16px;color:#0d1a13;background:#fff;outline:none" style-focus="border-color:#7f9d1d;box-shadow:0 0 0 4px rgba(166,201,43,.18)">
             </label>
           </sc-if>
           <sc-if value="{{ f.isChoice }}">
             <fieldset style="border:0;padding:0;margin:18px 0 0">
               <legend style="font-size:13.5px;font-weight:600;color:#33463a;padding:0;margin-bottom:8px">{{ f.label }}</legend>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px">
                 <sc-for list="{{ f.opts }}" as="o">
                   <sc-if value="{{ o.on }}">
                     <button type="button" onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:10px;min-height:52px;padding:0 14px;border:1.5px solid #7f9d1d;background:#f4fadc;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#0d1a13;text-align:left;cursor:pointer">
@@ -339,7 +339,7 @@ input::placeholder{color:#8a978e}
         </sc-if>
         <div style="display:flex;gap:8px;margin-top:22px">
           <sc-if value="{{ showBack }}">
-            <button type="button" onClick="{{ back }}" style="flex:none;min-height:56px;padding:0 18px;border:1.5px solid #e2e8dc;background:#fff;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#44584b;cursor:pointer">←</button>
+            <button type="button" aria-label="Back" onClick="{{ back }}" style="flex:none;min-width:56px;min-height:56px;padding:0 18px;border:1.5px solid #e2e8dc;background:#fff;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#44584b;cursor:pointer">←</button>
           </sc-if>
           <button type="button" onClick="{{ next }}" style="flex:1;min-height:56px;padding:0 18px;border:0;background:#0d1a13;color:#fff;border-radius:12px;font:inherit;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#1b3626">{{ nextLabel }}</button>
         </div>
@@ -567,24 +567,30 @@ const SCREENS = [
 
 class Component extends DCLogic {
   state = { step: 0, data: {}, error: '', done: false, sending: false, clock: '--:--:--', isMobile: false, showBar: false };
-  formRef = React.createRef();
-  heroRef = React.createRef();
 
   componentDidMount() {
     try { const s = localStorage.getItem(KEY); if (s) { const p = JSON.parse(s); this.setState({ data: p.data || {}, step: p.step || 0 }); } } catch (e) {}
     this.tick(); this.timer = setInterval(() => this.tick(), 1000);
     this.onResize = () => this.setState({ isMobile: window.innerWidth < 760 });
     this.onResize(); window.addEventListener('resize', this.onResize);
-    if ('IntersectionObserver' in window) {
-      const vis = { hero: true, form: false };
-      this.io = new IntersectionObserver(es => {
-        es.forEach(e => { if (e.target === this.heroRef.current) vis.hero = e.isIntersecting; if (e.target === this.formRef.current) vis.form = e.isIntersecting; });
-        this.setState({ showBar: !vis.hero && !vis.form });
-      }, { threshold: 0.05 });
-      [this.heroRef, this.formRef].forEach(r => r.current && this.io.observe(r.current));
-    }
+    this.onScroll = () => {
+      const onScreen = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return false;
+        const r = el.getBoundingClientRect();
+        return r.bottom > 0 && r.top < window.innerHeight;
+      };
+      const show = !onScreen('hero') && !onScreen('request');
+      if (show !== this.state.showBar) this.setState({ showBar: show });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll();
   }
-  componentWillUnmount() { clearInterval(this.timer); window.removeEventListener('resize', this.onResize); this.io && this.io.disconnect(); }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+  }
 
   tick() {
     const now = new Date(), end = new Date(now); end.setHours(24, 0, 0, 0);
@@ -607,7 +613,17 @@ class Component extends DCLogic {
     this.submit();
   };
   back = () => this.setState(s => { const step = Math.max(0, s.step - 1); this.persist(s.data, step); return { step, error: '' }; }, () => this.toForm());
-  toForm() { const el = this.formRef.current; if (!el) return; const top = el.getBoundingClientRect().top; if (top < 0) window.scrollTo({ top: window.scrollY + top - 64, behavior: 'smooth' }); }
+  // Pull the next step into view after Continue. On a phone the card often sits
+  // partly off-screen once it changes height, which left people scrolling to
+  // find the fields they had just been asked for.
+  toForm() {
+    const el = document.getElementById('request');
+    if (!el) return;
+    const top = el.getBoundingClientRect().top;
+    if (top < 0 || top > window.innerHeight * 0.5) {
+      window.scrollTo({ top: window.scrollY + top - 64, behavior: 'smooth' });
+    }
+  }
   pick(f, o) {
     this.set(f.name, o);
     const cur = this.state.step;
@@ -675,12 +691,16 @@ class Component extends DCLogic {
     const fields = sc.fields.map(f => ({
       ...f, isText: f.k === 'text', isChoice: f.k === 'choice', isCheck: f.k === 'check',
       value: data[f.name] || '', onChange: e => this.set(f.name, e.target.value),
+      // The on-screen keyboard's action key advances the step, so a phone user
+      // never has to dismiss the keyboard to reach Continue.
+      onKeyDown: e => { if (e.key === 'Enter') { e.preventDefault(); this.next(); } },
+      eh: last ? 'go' : 'next',
       opts: (f.options || []).map(o => ({ label: o, on: data[f.name] === o, off: data[f.name] !== o, onClick: () => this.pick(f, o) })),
       checked: !!data[f.name], unchecked: !data[f.name], onToggle: () => this.set(f.name, !data[f.name])
     }));
     const left = SCREENS.length - step - 1;
     return {
-      clock, year: new Date().getFullYear(), heroRef: this.heroRef, formRef: this.formRef,
+      clock, year: new Date().getFullYear(),
       done, notDone: !done, title: sc.title, sub: sc.sub, fields, error,
       counter: `Step ${step + 1} of ${SCREENS.length}`,
       remaining: last ? 'Last one' : `${left} to go`,
