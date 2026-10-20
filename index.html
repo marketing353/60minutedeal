@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>60 Minute Car Deals — Stop shopping. Start driving.</title>
+<meta name="description" content="Tell us what you want to drive in 60 seconds. We match it to real vehicles and real numbers across California — no credit check, trade-ins welcome, and no dealership calls until you say go.">
+<link rel="canonical" href="https://60minutedeal.vercel.app/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0d1a13">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="60 Minute Car Deals">
+<meta property="og:title" content="60 Minute Car Deals — Stop shopping. Start driving.">
+<meta property="og:description" content="Tell us what you want to drive in 60 seconds. We match it to real vehicles and real numbers across California — no credit check, trade-ins welcome, and no dealership calls until you say go.">
+<meta property="og:url" content="https://60minutedeal.vercel.app/">
+<meta property="og:image" content="https://60minutedeal.vercel.app/og.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="60 Minute Car Deals — Stop shopping. Start driving.">
+<meta name="twitter:description" content="Tell us what you want to drive in 60 seconds. We match it to real vehicles and real numbers across California — no credit check, trade-ins welcome, and no dealership calls until you say go.">
+<meta name="twitter:image" content="https://60minutedeal.vercel.app/og.svg">
+
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./favicon.svg">
+
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:#0d1a13;font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#0d1a13}
+a:hover{color:#4c6410}
+summary::-webkit-details-marker{display:none}
+input::placeholder{color:#8a978e}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</helmet>
+
+<div style="background:#0a1410;color:#cfe0c9;font-size:13px;padding:9px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;text-align:center">
+  <span style="width:7px;height:7px;border-radius:50%;background:#ff6a1a"></span>
+  <span style="color:#fff;font-weight:600">Today’s matching window closes in</span>
+  <span style="background:#d6ff38;color:#0d1a13;font-family:'Geist Mono',monospace;font-weight:600;padding:2px 8px;border-radius:5px;font-variant-numeric:tabular-nums">{{ clock }}</span>
+</div>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid #e2e8dc">
+  <nav style="max-width:1120px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <a href="#top" style="text-decoration:none;display:flex;align-items:center;gap:9px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.02em;color:#0d1a13">
+      <span style="display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#d6ff38;font-size:14px;letter-spacing:-.04em">60</span>
+      <span>Minute Car Deals</span>
+    </a>
+    <a href="#request" style="display:flex;align-items:center;min-height:44px;padding:0 16px;border-radius:10px;background:#0d1a13;color:#fff;text-decoration:none;font-weight:600;font-size:14px;white-space:nowrap">Find my vehicle</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section ref="{{ heroRef }}" style="background:#0d1a13;color:#eef4ea;overflow:hidden">
+  <div style="max-width:1120px;margin:0 auto;padding:44px 20px 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:44px;align-items:center">
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#cfe0c9;border:1px solid rgba(214,255,56,.3);background:rgba(214,255,56,.08);padding:7px 12px;border-radius:100px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#d6ff38"></span>For Californians who’d rather be driving than negotiating
+      </div>
+      <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(48px,12vw,92px);line-height:.92;letter-spacing:-.045em;margin:22px 0 20px;color:#fff;text-wrap:balance">Stop shopping. Start <span style="background:#d6ff38;color:#0d1a13;padding:0 .12em;border-radius:.1em">driving</span>.</h1>
+      <p style="font-size:clamp(17px,4.4vw,19px);line-height:1.55;color:#b7c9b6;margin:0 0 24px;max-width:520px;text-wrap:pretty">Tell us what you want in <b style="color:#fff">60 seconds</b>. We match it to real vehicles and real numbers — so you walk in knowing the answer instead of asking the question.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:420px">
+        <a href="#request" style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 24px;border-radius:12px;background:#d6ff38;color:#0d1a13;text-decoration:none;font-weight:700;font-size:16px">Find my vehicle — free ↗</a>
+        <a href="#story" style="display:flex;align-items:center;justify-content:center;min-height:48px;color:#cfe0c9;font-size:14.5px;font-weight:500;text-decoration:none;border:1px solid #2a4434;border-radius:12px">Or read why we built this ↓</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:13.5px;color:#cfe0c9">
+        <span style="display:flex;gap:7px"><span style="color:#d6ff38">✓</span>No credit check</span>
+        <span style="display:flex;gap:7px"><span style="color:#d6ff38">✓</span>Trade-ins welcome</span>
+        <span style="display:flex;gap:7px"><span style="color:#d6ff38">✓</span>No dealership calls until you say go</span>
+      </div>
+    </div>
+
+    <div style="background:#f5f8ef;color:#0d1a13;border-radius:20px;padding:22px 22px 18px;box-shadow:0 30px 80px rgba(0,0,0,.4);max-width:440px;width:100%;justify-self:center;transform:rotate(-1.2deg)">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5c6b61;padding-bottom:14px;border-bottom:1.5px dashed #c9d3c3">
+        <span>Your brief · example</span><span style="color:#4c6410">Ready</span>
+      </div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:14px 16px;padding:16px 0;font-size:15px;align-items:baseline">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#5c6b61;text-transform:uppercase;letter-spacing:.06em">Want</span><b style="font-weight:600">Ram 1500, pre-owned</b>
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#5c6b61;text-transform:uppercase;letter-spacing:.06em">Afford</span><b style="font-weight:600">$500/mo · $2,000 down</b>
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#5c6b61;text-transform:uppercase;letter-spacing:.06em">Trade</span><b style="font-weight:600">Yes — details ready</b>
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;color:#5c6b61;text-transform:uppercase;letter-spacing:.06em">Walk-away</span><b style="font-weight:600">Anything over $540/mo</b>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1.5px dashed #c9d3c3;font-size:13px;color:#3b4c41">
+        <span style="color:#4c6410;letter-spacing:1px">★★★★★</span><span><b>1,247 requests</b> matched this month</span>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #1c2c22;background:#0a1410">
+    <div style="max-width:1120px;margin:0 auto;padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px">
+      <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:24px;color:#fff;letter-spacing:-.02em">1,247</div><div style="font-size:12.5px;color:#a8bda6">Requests matched this month</div></div>
+      <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:24px;color:#fff;letter-spacing:-.02em">4.8 / 5</div><div style="font-size:12.5px;color:#a8bda6">Average customer rating</div></div>
+      <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:24px;color:#fff;letter-spacing:-.02em">60 sec</div><div style="font-size:12.5px;color:#a8bda6">Average time to complete</div></div>
+      <div><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:24px;color:#fff;letter-spacing:-.02em">$0</div><div style="font-size:12.5px;color:#a8bda6">Cost to submit a request</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="story" style="background:#f5f8ef;scroll-margin-top:64px">
+  <div style="max-width:640px;margin:0 auto;padding:64px 20px 24px">
+    <div style="display:flex;align-items:center;gap:12px;font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410">
+      <span>I · The truck</span><span style="flex:1;height:1px;background:#d3dccb"></span><span style="color:#5c6b61">The 90-second read</span>
+    </div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(32px,8.4vw,48px);line-height:1.02;letter-spacing:-.035em;margin:22px 0 36px;text-wrap:balance">Two years ago, I spent six Saturdays buying a truck. I’m still angry about it.</h2>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:clamp(20px,5.2vw,24px);line-height:1.5;letter-spacing:-.01em;color:#25382c">
+      <p style="margin:0">Not at the dealer.</p>
+      <p style="margin:0;font-weight:700;color:#0d1a13">At myself.</p>
+      <p style="margin:28px 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,7vw,36px);line-height:1.1;letter-spacing:-.03em;color:#0d1a13">Because I did everything “right.”</p>
+      <p style="margin:0">I compared. I haggled. I walked out twice.</p>
+      <p style="margin:0">I brought my brother-in-law — the one who “knows cars.”</p>
+      <p style="margin:0;font-weight:700;color:#0d1a13">Forty-eight hours of my life. Gone.</p>
+    </div>
+  </div>
+
+  <div style="max-width:680px;margin:0 auto;padding:16px 20px 24px">
+    <div style="background:#0d1a13;color:#eef4ea;border-radius:20px;padding:28px 24px">
+      <p style="margin:0;font-size:clamp(19px,5vw,22px);line-height:1.45;color:#cfe0c9">And three weeks later, I found out a guy two exits up the 5 paid</p>
+      <p style="margin:10px 0 14px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(64px,19vw,112px);line-height:.9;letter-spacing:-.05em;color:#d6ff38">$3,400 less</p>
+      <p style="margin:0 0 20px;font-size:clamp(19px,5vw,22px);line-height:1.45;color:#cfe0c9">for the exact same truck.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#23402e;border-radius:12px;overflow:hidden;font-size:14px">
+        <div style="background:#152a1e;padding:12px 14px">Same color.</div>
+        <div style="background:#152a1e;padding:12px 14px">Same packages.</div>
+        <div style="background:#152a1e;padding:12px 14px">Same bank.</div>
+        <div style="background:#152a1e;padding:12px 14px">Same Tuesday afternoon.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:640px;margin:0 auto;padding:40px 20px 64px">
+    <div style="display:flex;align-items:center;gap:12px;font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410;margin-bottom:24px">
+      <span>II · Three questions</span><span style="flex:1;height:1px;background:#d3dccb"></span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:clamp(20px,5.2vw,24px);line-height:1.5;letter-spacing:-.01em;color:#25382c">
+      <p style="margin:0 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,7vw,36px);line-height:1.1;letter-spacing:-.03em;color:#0d1a13">Here’s what still eats at me:</p>
+      <p style="margin:0">He wasn’t smarter.</p>
+      <p style="margin:0">He wasn’t a “better negotiator.”</p>
+      <p style="margin:0;font-weight:700;color:#0d1a13">He just knew three things before he walked in that I didn’t know until I walked out.</p>
+    </div>
+    <ol style="list-style:none;margin:32px 0;padding:0;display:flex;flex-direction:column;gap:10px">
+      <li style="display:flex;align-items:center;gap:18px;background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:18px 20px">
+        <span style="flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#d6ff38;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px">1</span>
+        <span style="font-size:clamp(18px,4.8vw,21px);line-height:1.3">What he <b>actually wanted.</b></span>
+      </li>
+      <li style="display:flex;align-items:center;gap:18px;background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:18px 20px">
+        <span style="flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#d6ff38;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px">2</span>
+        <span style="font-size:clamp(18px,4.8vw,21px);line-height:1.3">What he could <b>actually afford.</b></span>
+      </li>
+      <li style="display:flex;align-items:center;gap:18px;background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:18px 20px">
+        <span style="flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#d6ff38;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px">3</span>
+        <span style="font-size:clamp(18px,4.8vw,21px);line-height:1.3">What his trade-in was <b>actually worth.</b></span>
+      </li>
+    </ol>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:clamp(20px,5.2vw,24px);line-height:1.5;letter-spacing:-.01em;color:#25382c">
+      <p style="margin:0;font-weight:700;color:#0d1a13">That’s it. Three questions.</p>
+      <p style="margin:0">Answered before the first “let me talk to my manager.”</p>
+    </div>
+    <div style="margin-top:32px;background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px">
+      <a href="#request" style="display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 18px;border-radius:12px;background:#0d1a13;color:#fff;text-decoration:none;font-weight:600;font-size:15px;text-align:center">Skip the story — start my 60-second request ↗</a>
+      <p style="margin:0;text-align:center;font-size:12.5px;color:#5c6b61">Free · No credit check · No dealership calls unless you say go.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:#0d1a13;color:#eef4ea">
+  <div style="max-width:1120px;margin:0 auto;padding:64px 20px">
+    <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#d6ff38">The math nobody shows you</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(32px,8vw,52px);line-height:1.02;letter-spacing:-.035em;margin:14px 0 10px;color:#fff;text-wrap:balance">Shopping without a plan isn’t free.</h2>
+    <p style="margin:0 0 32px;font-size:17px;color:#a8bda6">It just doesn’t show up on the invoice.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:#23402e;border:1px solid #23402e;border-radius:18px;overflow:hidden">
+      <div style="background:#0d1a13;padding:24px 22px">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1;letter-spacing:-.04em;color:#d6ff38">48 hrs</div>
+        <div style="font-weight:600;font-size:16px;margin:12px 0 4px;color:#fff">Lost weekends</div>
+        <div style="font-size:14.5px;line-height:1.5;color:#a8bda6">The average buyer visits 3–4 dealerships and still leaves unsure.</div>
+      </div>
+      <div style="background:#0d1a13;padding:24px 22px">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1;letter-spacing:-.04em;color:#d6ff38">$3,400</div>
+        <div style="font-weight:600;font-size:16px;margin:12px 0 4px;color:#fff">Left on the table</div>
+        <div style="font-size:14.5px;line-height:1.5;color:#a8bda6">What people typically give up when they negotiate without knowing the numbers first.</div>
+      </div>
+      <div style="background:#0d1a13;padding:24px 22px">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:48px;line-height:1;letter-spacing:-.04em;color:#d6ff38">11 days</div>
+        <div style="font-weight:600;font-size:16px;margin:12px 0 4px;color:#fff">Decision drag</div>
+        <div style="font-size:14.5px;line-height:1.5;color:#a8bda6">Time spent “thinking about it” — because nobody ever gave you a clear answer.</div>
+      </div>
+    </div>
+    <p style="margin:32px 0 0;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(21px,5.4vw,28px);line-height:1.2;letter-spacing:-.02em;color:#fff;text-wrap:balance">Your time is worth more than <span style="color:#d6ff38">free coffee and a folding chair.</span></p>
+  </div>
+</section>
+
+<section style="background:#f5f8ef">
+  <div style="max-width:640px;margin:0 auto;padding:64px 20px 40px">
+    <div style="display:flex;align-items:center;gap:12px;font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410;margin-bottom:24px">
+      <span>III · The fix</span><span style="flex:1;height:1px;background:#d3dccb"></span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:clamp(20px,5.2vw,24px);line-height:1.5;letter-spacing:-.01em;color:#25382c">
+      <p style="margin:0 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,7vw,36px);line-height:1.1;letter-spacing:-.03em;color:#0d1a13;text-wrap:balance">So we built the thing I wish someone had handed me at that first dealership.</p>
+      <p style="margin:0">Eight short screens. Sixty seconds, honestly.</p>
+      <p style="margin:0">The same three questions — plus five follow-ups every good salesperson would ask you anyway.</p>
+      <p style="margin:0;font-weight:700;color:#0d1a13">You answer them in private. Before anyone’s selling you anything.</p>
+      <p style="margin:28px 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,7vw,36px);line-height:1.1;letter-spacing:-.03em;color:#0d1a13">Then you walk in different.</p>
+      <p style="margin:0">Not with a pitch. <mark style="background:#d6ff38;color:#0d1a13;padding:0 6px;border-radius:4px;font-weight:700">With a brief.</mark></p>
+      <p style="margin:0">You know the number. You know the trade.</p>
+      <p style="margin:0">You know the walk-away.</p>
+      <p style="margin:0;font-weight:700;color:#0d1a13">You know what you’ll say yes to — and what you’ll laugh at.</p>
+      <p style="margin:28px 0 6px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,7vw,36px);line-height:1.1;letter-spacing:-.03em;color:#0d1a13;text-wrap:balance">The people who win at this aren’t smarter. They’re just prepared.</p>
+      <p style="margin:0;font-weight:700;color:#0d1a13">Sixty seconds now. Six Saturdays back.</p>
+    </div>
+    <div style="margin-top:32px;padding-top:20px;border-top:1px solid #d3dccb;font-size:14px;color:#5c6b61">
+      <b style="display:block;color:#0d1a13;font-size:15px">— The 60 Minute Car Deals team</b>Built for Californians who’d rather be driving.
+    </div>
+  </div>
+
+  <div id="how-it-works" style="max-width:1120px;margin:0 auto;padding:24px 20px 64px">
+    <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410">Less hassle. More driving.</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,7.4vw,46px);line-height:1.04;letter-spacing:-.035em;margin:12px 0 28px">Your next car, in three steps.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px">
+      <article style="background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:22px">
+        <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#4c6410">01</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em;margin:10px 0 6px">Tell us what you want</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#5c6b61">Eight quick screens — vehicle, budget, trade-in, timeline. Most people finish in under 60 seconds.</p>
+      </article>
+      <article style="background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:22px">
+        <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#4c6410">02</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em;margin:10px 0 6px">See your matches</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#5c6b61">Review vehicles and real numbers that fit your budget, your timeline and your situation.</p>
+      </article>
+      <article style="background:#fff;border:1px solid #e2e8dc;border-radius:16px;padding:22px">
+        <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#4c6410">03</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em;margin:10px 0 6px">Walk in ready</h3>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#5c6b61">You already know what you want and what you won’t accept. Confirm the details and drive.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="request" ref="{{ formRef }}" style="background:#0d1a13;scroll-margin-top:64px">
+  <div style="max-width:560px;margin:0 auto;padding:56px 16px 64px">
+    <div style="text-align:center;color:#eef4ea;margin-bottom:24px;padding:0 4px">
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#d6ff38">Your vehicle request</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,7.6vw,42px);line-height:1.04;letter-spacing:-.035em;margin:12px 0 8px;color:#fff">Write your brief.</h2>
+      <p style="margin:0;font-size:15px;color:#a8bda6">Eight short screens. Sixty seconds, honestly.</p>
+    </div>
+
+    <div style="background:#fff;border-radius:22px;padding:22px 20px 20px;box-shadow:0 30px 80px rgba(0,0,0,.45)">
+      <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'Geist Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5c6b61">
+          <span>{{ counter }}</span><span style="color:#4c6410">{{ remaining }}</span>
+        </div>
+        <div style="height:6px;background:#edf0e9;border-radius:6px;margin:12px 0 22px;overflow:hidden">
+          <div style="height:100%;width:{{ pct }};background:#b9e51c;border-radius:6px;transition:width .35s cubic-bezier(.4,0,.2,1)"></div>
+        </div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:25px;line-height:1.15;letter-spacing:-.025em;margin:0 0 6px;text-wrap:balance">{{ title }}</h3>
+        <p style="margin:0 0 6px;font-size:14.5px;line-height:1.5;color:#5c6b61">{{ sub }}</p>
+
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="2">
+          <sc-if value="{{ f.isText }}">
+            <label style="display:block;margin-top:16px">
+              <span style="display:block;font-size:13.5px;font-weight:600;color:#33463a;margin-bottom:6px">{{ f.label }}</span>
+              <input type="{{ f.type }}" inputMode="{{ f.mode }}" placeholder="{{ f.ph }}" value="{{ f.value }}" onChange="{{ f.onChange }}" autoComplete="{{ f.ac }}" style="width:100%;min-height:52px;padding:0 14px;border:1.5px solid #ccd5c9;border-radius:12px;font:inherit;font-size:16px;color:#0d1a13;background:#fff;outline:none" style-focus="border-color:#7f9d1d;box-shadow:0 0 0 4px rgba(166,201,43,.18)">
+            </label>
+          </sc-if>
+          <sc-if value="{{ f.isChoice }}">
+            <fieldset style="border:0;padding:0;margin:18px 0 0">
+              <legend style="font-size:13.5px;font-weight:600;color:#33463a;padding:0;margin-bottom:8px">{{ f.label }}</legend>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px">
+                <sc-for list="{{ f.opts }}" as="o">
+                  <sc-if value="{{ o.on }}">
+                    <button type="button" onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:10px;min-height:52px;padding:0 14px;border:1.5px solid #7f9d1d;background:#f4fadc;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#0d1a13;text-align:left;cursor:pointer">
+                      <span style="flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#0d1a13;color:#d6ff38;font-size:11px">✓</span>{{ o.label }}
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{ o.off }}">
+                    <button type="button" onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:10px;min-height:52px;padding:0 14px;border:1.5px solid #e2e8dc;background:#fff;border-radius:12px;font:inherit;font-size:15px;font-weight:500;color:#25382c;text-align:left;cursor:pointer" style-hover="border-color:#c3d0bb;background:#fafcf6">
+                      <span style="flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid #c3cdbf"></span>{{ o.label }}
+                    </button>
+                  </sc-if>
+                </sc-for>
+              </div>
+            </fieldset>
+          </sc-if>
+          <sc-if value="{{ f.isCheck }}">
+            <button type="button" onClick="{{ f.onToggle }}" style="display:flex;align-items:flex-start;gap:12px;width:100%;margin-top:18px;padding:14px;border:1.5px solid #e2e8dc;background:#fafcf6;border-radius:12px;font:inherit;font-size:14px;line-height:1.45;color:#33463a;text-align:left;cursor:pointer">
+              <sc-if value="{{ f.checked }}"><span style="flex:none;display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:#0d1a13;color:#d6ff38;font-size:12px">✓</span></sc-if>
+              <sc-if value="{{ f.unchecked }}"><span style="flex:none;width:22px;height:22px;border-radius:6px;border:1.5px solid #b4bfb0;background:#fff"></span></sc-if>
+              <span>{{ f.label }}</span>
+            </button>
+          </sc-if>
+        </sc-for>
+
+        <sc-if value="{{ error }}">
+          <p role="alert" style="margin:14px 0 0;font-size:13.5px;font-weight:600;color:#c62828">{{ error }}</p>
+        </sc-if>
+        <div style="display:flex;gap:8px;margin-top:22px">
+          <sc-if value="{{ showBack }}">
+            <button type="button" onClick="{{ back }}" style="flex:none;min-height:56px;padding:0 18px;border:1.5px solid #e2e8dc;background:#fff;border-radius:12px;font:inherit;font-size:15px;font-weight:600;color:#44584b;cursor:pointer">←</button>
+          </sc-if>
+          <button type="button" onClick="{{ next }}" style="flex:1;min-height:56px;padding:0 18px;border:0;background:#0d1a13;color:#fff;border-radius:12px;font:inherit;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#1b3626">{{ nextLabel }}</button>
+        </div>
+        <p style="margin:14px 0 0;text-align:center;font-size:12.5px;line-height:1.5;color:#5c6b61">{{ note }}</p>
+      </sc-if>
+
+      <sc-if value="{{ done }}">
+        <div style="text-align:center;padding:12px 4px 4px">
+          <div style="display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#d6ff38;font-size:28px;font-weight:700">✓</div>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.025em;margin:16px 0 8px">Your request is ready.</h3>
+          <p style="margin:0;font-size:14.5px;color:#5c6b61">Your download has started. Nothing was sent to a dealership.</p>
+          <ol style="list-style:none;margin:20px 0 0;padding:0;text-align:left;display:flex;flex-direction:column">
+            <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">1</b>Open the downloaded file and check your details.</li>
+            <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">2</b>Bring it to any dealership — you now have a clear brief.</li>
+            <li style="display:flex;gap:12px;padding:12px 0;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">3</b>Compare offers against the budget you set, not the one you’re sold.</li>
+          </ol>
+          <button type="button" onClick="{{ restart }}" style="width:100%;min-height:52px;margin-top:16px;border:0;background:#0d1a13;color:#fff;border-radius:12px;font:inherit;font-size:15px;font-weight:600;cursor:pointer">Start another request</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div style="max-width:1120px;margin:0 auto;padding:64px 0 56px">
+    <div style="padding:0 20px">
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410">People who stopped guessing</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,7.4vw,46px);line-height:1.04;letter-spacing:-.035em;margin:12px 0 8px">They walked in already knowing.</h2>
+      <p style="margin:0 0 24px;font-size:16px;color:#5c6b61">Real outcomes start with a clear request. Here’s what that looks like.</p>
+    </div>
+    <div style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 12px;scroll-padding:0 20px;-webkit-overflow-scrolling:touch">
+      <article style="flex:0 0 min(84%,350px);scroll-snap-align:start;display:flex;flex-direction:column;background:#f5f8ef;border-radius:18px;padding:22px">
+        <div style="color:#4c6410;letter-spacing:2px;font-size:14px">★★★★★</div>
+        <blockquote style="margin:12px 0 20px;flex:1;font-size:17px;line-height:1.5;color:#25382c">“I filled it out on my lunch break in Koreatown. Walked in Saturday, knew exactly what I wanted and what my trade was worth. Out in two hours.”</blockquote>
+        <div style="display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid #dfe6d8">
+          <span style="flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#d6ff38;font-weight:700;font-size:13px">MR</span>
+          <div style="font-size:13px;color:#5c6b61"><b style="display:block;color:#0d1a13;font-size:14px">Marcus R.</b>Los Angeles, CA · 2023 Tacoma</div>
+        </div>
+      </article>
+      <article style="flex:0 0 min(84%,350px);scroll-snap-align:start;display:flex;flex-direction:column;background:#f5f8ef;border-radius:18px;padding:22px">
+        <div style="color:#4c6410;letter-spacing:2px;font-size:14px">★★★★★</div>
+        <blockquote style="margin:12px 0 20px;flex:1;font-size:17px;line-height:1.5;color:#25382c">“The budget screen was the wake-up call. I was shopping $80/month too high. That one answer changed the whole search.”</blockquote>
+        <div style="display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid #dfe6d8">
+          <span style="flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#d6ff38;font-weight:700;font-size:13px">JT</span>
+          <div style="font-size:13px;color:#5c6b61"><b style="display:block;color:#0d1a13;font-size:14px">Jenna T.</b>San Diego, CA · 2022 RAV4</div>
+        </div>
+      </article>
+      <article style="flex:0 0 min(84%,350px);scroll-snap-align:start;display:flex;flex-direction:column;background:#f5f8ef;border-radius:18px;padding:22px">
+        <div style="color:#4c6410;letter-spacing:2px;font-size:14px">★★★★★</div>
+        <blockquote style="margin:12px 0 20px;flex:1;font-size:17px;line-height:1.5;color:#25382c">“First time buying without my dad. The request sheet made me feel like I wasn’t walking in blind. No one talked me into anything.”</blockquote>
+        <div style="display:flex;align-items:center;gap:11px;padding-top:14px;border-top:1px solid #dfe6d8">
+          <span style="flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#d6ff38;font-weight:700;font-size:13px">SL</span>
+          <div style="font-size:13px;color:#5c6b61"><b style="display:block;color:#0d1a13;font-size:14px">Sam L.</b>Sacramento, CA · 2021 Civic</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section style="background:#f5f8ef">
+  <div style="max-width:1120px;margin:0 auto;padding:64px 20px">
+    <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410">Two ways to buy a car</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,7.4vw,46px);line-height:1.04;letter-spacing:-.035em;margin:12px 0 28px;text-wrap:balance">A little preparation. A much smoother experience.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:12px">
+      <article style="background:#fff;border:1px solid #e2e8dc;border-radius:18px;padding:22px">
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em;margin:0 0 8px;color:#5c6b61">The usual back-and-forth</h3>
+        <ul style="list-style:none;margin:0;padding:0;font-size:15px;color:#5c6b61">
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9"><span style="color:#b4bdb1">✕</span>Start searching without a clear plan</li>
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9"><span style="color:#b4bdb1">✕</span>Repeat your preferences at every visit</li>
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9"><span style="color:#b4bdb1">✕</span>Work through every detail on arrival</li>
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9"><span style="color:#b4bdb1">✕</span>Spend hours considering unsuitable vehicles</li>
+          <li style="display:flex;gap:12px;padding:12px 0"><span style="color:#b4bdb1">✕</span>Find out your trade value last</li>
+        </ul>
+      </article>
+      <article style="background:#0d1a13;color:#eef4ea;border-radius:18px;padding:22px">
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em;margin:0 0 8px;color:#d6ff38">The 60 Minute approach</h3>
+        <ul style="list-style:none;margin:0;padding:0;font-size:15px">
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #23402e"><span style="color:#d6ff38">✓</span>Share your preferences before visiting</li>
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #23402e"><span style="color:#d6ff38">✓</span>Focus only on vehicles that fit your needs</li>
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #23402e"><span style="color:#d6ff38">✓</span>Know your budget before you walk in</li>
+          <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #23402e"><span style="color:#d6ff38">✓</span>Arrive with a clear next step</li>
+          <li style="display:flex;gap:12px;padding:12px 0"><span style="color:#d6ff38">✓</span>Bring your trade-in details up front</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="vehicles" style="background:#fff">
+  <div style="max-width:1120px;margin:0 auto;padding:64px 0 56px">
+    <div style="padding:0 20px">
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410">Find your fit</div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,7.4vw,46px);line-height:1.04;letter-spacing:-.035em;margin:12px 0 8px">A vehicle for your kind of life.</h2>
+      <p style="margin:0 0 24px;font-size:16px;color:#5c6b61">Daily commute, weekend adventure, or a little of both.</p>
+    </div>
+    <div style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 20px 12px;scroll-padding:0 20px">
+      <a href="#request" style="flex:0 0 min(78%,350px);scroll-snap-align:start;text-decoration:none;color:#0d1a13;border-radius:18px;overflow:hidden;background:#f5f8ef">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Sporty passenger vehicle" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+        <div style="padding:16px 18px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px">Cars &amp; sedans</div><div style="font-size:14px;color:#5c6b61;margin-top:2px">Comfort for every commute.</div></div>
+      </a>
+      <a href="#request" style="flex:0 0 min(78%,350px);scroll-snap-align:start;text-decoration:none;color:#0d1a13;border-radius:18px;overflow:hidden;background:#f5f8ef">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Sport utility vehicle" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+        <div style="padding:16px 18px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px">SUVs &amp; crossovers</div><div style="font-size:14px;color:#5c6b61;margin-top:2px">More room for what matters.</div></div>
+      </a>
+      <a href="#request" style="flex:0 0 min(78%,350px);scroll-snap-align:start;text-decoration:none;color:#0d1a13;border-radius:18px;overflow:hidden;background:#f5f8ef">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&amp;fit=crop&amp;w=700&amp;q=80" alt="Pickup truck" style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover">
+        <div style="padding:16px 18px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:19px">Trucks</div><div style="font-size:14px;color:#5c6b61;margin-top:2px">Ready for work and weekends.</div></div>
+      </a>
+    </div>
+    <p style="margin:8px 20px 0;font-size:12px;color:#5c6b61">Photos are illustrative and do not represent current inventory.</p>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div style="max-width:1120px;margin:0 auto;padding:0 20px 64px">
+    <div style="background:#d6ff38;border-radius:22px;padding:28px 24px;display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center">
+      <div style="flex:none;display:grid;place-items:center;width:96px;height:96px;border-radius:50%;background:#0d1a13;color:#d6ff38;text-align:center;font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;line-height:1.3;letter-spacing:.06em;text-transform:uppercase">Zero<br>Risk<br>Request</div>
+      <div style="flex:1 1 300px">
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(24px,6vw,32px);line-height:1.1;letter-spacing:-.03em;margin:0 0 8px">Your request costs nothing. Literally.</h3>
+        <p style="margin:0;font-size:15.5px;line-height:1.55;color:#22331a">No payment. No credit pull. No obligation. No dealership calls unless you decide you want them. If it isn’t useful, close the tab — nothing happens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:#f5f8ef">
+  <div style="max-width:760px;margin:0 auto;padding:64px 20px">
+    <div style="font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#4c6410">Good questions</div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,7.4vw,46px);line-height:1.04;letter-spacing:-.035em;margin:12px 0 20px">Before you get started.</h2>
+    <div style="display:flex;flex-direction:column">
+      <details open style="border-bottom:1px solid #d3dccb">
+        <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">Does completing the form affect my credit?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">No. This form does not run a credit check of any kind. Any future credit application requires a separate process and your explicit authorization.</p>
+      </details>
+      <details style="border-bottom:1px solid #d3dccb">
+        <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">Can I trade in my current vehicle?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">Yes. Select the trade-in option in the form. Final valuation depends on an appraisal, vehicle condition, mileage and other details.</p>
+      </details>
+      <details style="border-bottom:1px solid #d3dccb">
+        <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">Is a 60-minute purchase guaranteed?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">No. Completion time depends on vehicle availability, financing, documentation and your individual circumstances. What we can promise is that you’ll arrive prepared.</p>
+      </details>
+      <details style="border-bottom:1px solid #d3dccb">
+        <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">Can I browse both new and used vehicles?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">Yes. Choose new, pre-owned, or open to both when completing your request.</p>
+      </details>
+      <details style="border-bottom:1px solid #d3dccb">
+        <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">What happens to my information?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">In this demonstration, nothing leaves your device. Your answers stay in this page’s memory until you leave or refresh, and the final step downloads a private JSON file you control.</p>
+      </details>
+      <details style="border-bottom:1px solid #d3dccb">
+        <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">How long does it actually take?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">Most people finish all eight screens in under 60 seconds. You can go back and change any answer at any time.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section style="background:#0d1a13;color:#fff;text-align:center">
+  <div style="max-width:640px;margin:0 auto;padding:72px 20px">
+    <p style="margin:0 0 14px;font-family:'Geist Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#d6ff38">Sixty seconds now. Six Saturdays back.</p>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(34px,9vw,56px);line-height:1;letter-spacing:-.04em;margin:0 0 14px;text-wrap:balance">Your next vehicle starts here.</h2>
+    <p style="margin:0 0 28px;font-size:17px;color:#a8bda6">Tell us what you’re looking for. Walk in knowing the answer.</p>
+    <a href="#request" style="display:flex;align-items:center;justify-content:center;min-height:56px;max-width:380px;margin:0 auto;border-radius:12px;background:#d6ff38;color:#0d1a13;text-decoration:none;font-weight:700;font-size:16px">Find my next vehicle ↗</a>
+    <p style="margin:16px 0 0;font-size:13px;color:#a8bda6">Free · 60 seconds · No credit check · Today’s window closes in {{ clock }}</p>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:#0a1410;color:#8fa48c;padding:32px 20px {{ footerPad }}">
+  <div style="max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:9px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;color:#fff">
+      <span style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#d6ff38;color:#0d1a13;font-size:12px">60</span>Minute Car Deals
+    </div>
+    <p style="margin:0;max-width:880px;font-size:12px;line-height:1.7">© {{ year }} 60 Minute Car Deals. Demonstration website. Vehicle availability, pricing, financing and completion times are subject to confirmation. Statistics, testimonials and live activity shown on this page are illustrative placeholders for design demonstration and do not represent verified customer data. This website is not affiliated with or endorsed by Meta or Facebook.</p>
+  </div>
+</footer>
+
+<sc-if value="{{ showMobileBar }}">
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid #e2e8dc;display:flex;align-items:center;gap:12px">
+    <div style="font-size:12.5px;line-height:1.3;color:#33463a"><b style="display:block;color:#0d1a13">60-second form</b>No credit check</div>
+    <a href="#request" style="flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:12px;background:#d6ff38;color:#0d1a13;text-decoration:none;font-weight:700;font-size:15px">Find my vehicle ↗</a>
+  </div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const KEY = 'cmcd_request_v3';
+const T = (name, label, ph, type, req, mode, ac) => ({ k: 'text', name, label, ph: ph || '', type: type || 'text', req: req !== false, mode: mode || 'text', ac: ac || 'off' });
+const C = (name, label, options) => ({ k: 'choice', name, label, options });
+const SCREENS = [
+  { title: 'First — what do you want to drive?', sub: 'Start with your ideal vehicle. A second choice is optional.',
+    fields: [T('vehicle', 'Preferred make and model', 'e.g. Ram 1500'), T('alternative', 'Another vehicle you like', 'Optional', 'text', false), C('trade', 'Do you have a trade-in?', ['Yes', 'No'])] },
+  { title: 'Now let’s talk budget.', sub: 'A rough estimate is all we need — it narrows the search instantly.',
+    fields: [T('budget', 'Target monthly payment ($)', 'e.g. 500', 'text', true, 'numeric'), C('purchase', 'How would you like to purchase?', ['Finance', 'Lease', 'Pay cash']), C('condition', 'Which vehicles are you considering?', ['New', 'Pre-owned', 'Open to both'])] },
+  { title: 'When do you want to be driving it?', sub: 'Choose a timeline that matches your real life.',
+    fields: [T('down', 'Estimated down payment ($)', 'e.g. 2000', 'text', true, 'numeric'), C('timeline', 'Your timeline', ['Today', 'Within 7 days', 'Within 30 days', 'Just exploring'])] },
+  { title: 'A little about your situation.', sub: 'Pick the option that fits best. Nothing here is a credit check.', auto: true,
+    fields: [C('employment', 'Employment status', ['Employed', 'Self-employed', 'Retired', 'Other']), C('tenure', 'Time in your current situation', ['Under 6 months', '6–12 months', '1–2 years', '2+ years'])] },
+  { title: 'Your estimated income range.', sub: 'An estimate is enough. This is not a credit application.', auto: true,
+    fields: [C('income', 'Monthly income before deductions', ['Under $3,000', '$3,000–$4,000', '$4,000–$5,000', '$5,000–$6,000', 'Over $6,000', 'Prefer to discuss'])] },
+  { title: 'How would you describe your credit?', sub: 'An estimate is fine — or discuss it later.', auto: true,
+    fields: [C('credit', 'Estimated credit range', ['Excellent', 'Good', 'Fair', 'Rebuilding', 'Not sure', 'Prefer to discuss']), C('experience', 'Have you financed or leased before?', ['Yes', 'First-time buyer'])] },
+  { title: 'Where are you shopping?', sub: 'So we narrow the search to somewhere you’d actually drive to.',
+    fields: [T('city', 'City', 'Your city', 'text', true, 'text', 'address-level2'), T('region', 'State or province', 'State or province', 'text', true, 'text', 'address-level1'), T('postal', 'ZIP or postal code', 'ZIP or postal code', 'text', true, 'numeric', 'postal-code')] },
+  { title: 'Last step — where do we send your matches?', sub: 'You’re one click from a finished, personal vehicle request.',
+    fields: [T('name', 'Full name', 'Your name', 'text', true, 'text', 'name'), T('email', 'Email address', 'you@example.com', 'email', true, 'email', 'email'), T('phone', 'Phone number', 'Your phone number', 'tel', true, 'tel', 'tel'),
+      { k: 'check', name: 'acknowledge', label: 'I understand this demo downloads my request to my device and does not send it to a dealership.' }] }
+];
+
+class Component extends DCLogic {
+  state = { step: 0, data: {}, error: '', done: false, clock: '--:--:--', isMobile: false, showBar: false };
+  formRef = React.createRef();
+  heroRef = React.createRef();
+
+  componentDidMount() {
+    try { const s = localStorage.getItem(KEY); if (s) { const p = JSON.parse(s); this.setState({ data: p.data || {}, step: p.step || 0 }); } } catch (e) {}
+    this.tick(); this.timer = setInterval(() => this.tick(), 1000);
+    this.onResize = () => this.setState({ isMobile: window.innerWidth < 760 });
+    this.onResize(); window.addEventListener('resize', this.onResize);
+    if ('IntersectionObserver' in window) {
+      const vis = { hero: true, form: false };
+      this.io = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.target === this.heroRef.current) vis.hero = e.isIntersecting; if (e.target === this.formRef.current) vis.form = e.isIntersecting; });
+        this.setState({ showBar: !vis.hero && !vis.form });
+      }, { threshold: 0.05 });
+      [this.heroRef, this.formRef].forEach(r => r.current && this.io.observe(r.current));
+    }
+  }
+  componentWillUnmount() { clearInterval(this.timer); window.removeEventListener('resize', this.onResize); this.io && this.io.disconnect(); }
+
+  tick() {
+    const now = new Date(), end = new Date(now); end.setHours(24, 0, 0, 0);
+    const s = Math.max(0, Math.floor((end - now) / 1000)), p = n => String(n).padStart(2, '0');
+    this.setState({ clock: `${p(Math.floor(s / 3600))}:${p(Math.floor((s % 3600) / 60))}:${p(s % 60)}` });
+  }
+  persist(data, step) { try { localStorage.setItem(KEY, JSON.stringify({ data, step })); } catch (e) {} }
+  set(name, val) { this.setState(s => { const data = { ...s.data, [name]: val }; this.persist(data, s.step); return { data, error: '' }; }); }
+  valid(step, data) {
+    return SCREENS[step].fields.every(f => {
+      const v = data[f.name];
+      if (f.k === 'text') return !f.req || (String(v || '').trim() && (f.type !== 'email' || /\S+@\S+\.\S+/.test(v)));
+      return !!v;
+    });
+  }
+  next = () => {
+    const { step, data } = this.state;
+    if (!this.valid(step, data)) return this.setState({ error: 'One quick answer needed above — then you’re straight through.' });
+    if (step < SCREENS.length - 1) { this.persist(data, step + 1); return this.setState({ step: step + 1, error: '' }, () => this.toForm()); }
+    this.download();
+  };
+  back = () => this.setState(s => { const step = Math.max(0, s.step - 1); this.persist(s.data, step); return { step, error: '' }; }, () => this.toForm());
+  toForm() { const el = this.formRef.current; if (!el) return; const top = el.getBoundingClientRect().top; if (top < 0) window.scrollTo({ top: window.scrollY + top - 64, behavior: 'smooth' }); }
+  pick(f, o) {
+    this.set(f.name, o);
+    const cur = this.state.step;
+    if (SCREENS[cur].auto) setTimeout(() => { if (this.state.step === cur && this.valid(cur, this.state.data)) this.next(); }, 300);
+  }
+  download() {
+    const payload = { source: '60 Minute Car Deals website', createdAt: new Date().toISOString(), ...this.state.data };
+    delete payload.acknowledge;
+    const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
+    const a = document.createElement('a'); a.href = url; a.download = 'vehicle-request.json';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1500);
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    this.setState({ done: true });
+  }
+  restart = () => this.setState({ done: false, step: 0, data: {}, error: '' });
+
+  renderVals() {
+    const { step, data, error, done, clock, isMobile, showBar } = this.state;
+    const sc = SCREENS[step], last = step === SCREENS.length - 1;
+    const fields = sc.fields.map(f => ({
+      ...f, isText: f.k === 'text', isChoice: f.k === 'choice', isCheck: f.k === 'check',
+      value: data[f.name] || '', onChange: e => this.set(f.name, e.target.value),
+      opts: (f.options || []).map(o => ({ label: o, on: data[f.name] === o, off: data[f.name] !== o, onClick: () => this.pick(f, o) })),
+      checked: !!data[f.name], unchecked: !data[f.name], onToggle: () => this.set(f.name, !data[f.name])
+    }));
+    const left = SCREENS.length - step - 1;
+    return {
+      clock, year: new Date().getFullYear(), heroRef: this.heroRef, formRef: this.formRef,
+      done, notDone: !done, title: sc.title, sub: sc.sub, fields, error,
+      counter: `Step ${step + 1} of ${SCREENS.length}`,
+      remaining: last ? 'Last one' : `${left} to go`,
+      pct: `${((step + 1) / SCREENS.length) * 100}%`,
+      showBack: step > 0, back: this.back, next: this.next, restart: this.restart,
+      nextLabel: last ? 'Download my request ↓' : 'Continue →',
+      note: last ? 'Nothing is sent anywhere. Your request downloads to your device only.' : (step >= 4 ? 'Answers saved on this device. You can leave and come back.' : 'Your answers stay on this device until you choose to download them.'),
+      showMobileBar: isMobile && showBar,
+      footerPad: isMobile ? '96px' : '32px'
+    };
+  }
+}
+
+</script>
+</body>
+</html>
