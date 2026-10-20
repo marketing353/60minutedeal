@@ -30,6 +30,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11410655364"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-11410655364');
+  gtag('config', 'AW-17527160007');
+</script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '572850585616970');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=572850585616970&ev=PageView&noscript=1"></noscript>
+
 <script src="./support.js"></script>
 </head>
 <body>
@@ -317,12 +340,12 @@ input::placeholder{color:#8a978e}
       <sc-if value="{{ done }}">
         <div style="text-align:center;padding:12px 4px 4px">
           <div style="display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#d6ff38;font-size:28px;font-weight:700">✓</div>
-          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.025em;margin:16px 0 8px">Your request is ready.</h3>
-          <p style="margin:0;font-size:14.5px;color:#5c6b61">Your download has started. Nothing was sent to a dealership.</p>
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.025em;margin:16px 0 8px">Your request is in.</h3>
+          <p style="margin:0;font-size:14.5px;color:#5c6b61">It is with our team now. We will reply to the email you gave us.</p>
           <ol style="list-style:none;margin:20px 0 0;padding:0;text-align:left;display:flex;flex-direction:column">
-            <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">1</b>Open the downloaded file and check your details.</li>
-            <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">2</b>Bring it to any dealership — you now have a clear brief.</li>
-            <li style="display:flex;gap:12px;padding:12px 0;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">3</b>Compare offers against the budget you set, not the one you’re sold.</li>
+            <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">1</b>We read your request and match it to real vehicles.</li>
+            <li style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #eef2e9;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">2</b>You get real numbers back by email — no dealership calls until you say go.</li>
+            <li style="display:flex;gap:12px;padding:12px 0;font-size:14.5px;color:#3b4c41"><b style="flex:none;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#eef4d8;color:#4c6410;font-size:12px">3</b>Compare against the budget you set, not the one you’re sold.</li>
           </ol>
           <button type="button" onClick="{{ restart }}" style="width:100%;min-height:52px;margin-top:16px;border:0;background:#0d1a13;color:#fff;border-radius:12px;font:inherit;font-size:15px;font-weight:600;cursor:pointer">Start another request</button>
         </div>
@@ -468,7 +491,7 @@ input::placeholder{color:#8a978e}
       </details>
       <details style="border-bottom:1px solid #d3dccb">
         <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">What happens to my information?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
-        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">In this demonstration, nothing leaves your device. Your answers stay in this page’s memory until you leave or refresh, and the final step downloads a private JSON file you control.</p>
+        <p style="margin:0 0 18px;font-size:15px;line-height:1.6;color:#5c6b61">Your answers stay on your own device while you fill the form in. When you press send on the last step, they are emailed to our team so we can match your request — and nowhere else. We do not sell your details, and no dealership calls you until you tell us to.</p>
       </details>
       <details style="border-bottom:1px solid #d3dccb">
         <summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;min-height:60px;padding:14px 0;font-weight:600;font-size:16.5px">How long does it actually take?<span style="color:#5c6b61;font-size:22px;font-weight:400">+</span></summary>
@@ -528,11 +551,11 @@ const SCREENS = [
     fields: [T('city', 'City', 'Your city', 'text', true, 'text', 'address-level2'), T('region', 'State or province', 'State or province', 'text', true, 'text', 'address-level1'), T('postal', 'ZIP or postal code', 'ZIP or postal code', 'text', true, 'numeric', 'postal-code')] },
   { title: 'Last step — where do we send your matches?', sub: 'You’re one click from a finished, personal vehicle request.',
     fields: [T('name', 'Full name', 'Your name', 'text', true, 'text', 'name'), T('email', 'Email address', 'you@example.com', 'email', true, 'email', 'email'), T('phone', 'Phone number', 'Your phone number', 'tel', true, 'tel', 'tel'),
-      { k: 'check', name: 'acknowledge', label: 'I understand this demo downloads my request to my device and does not send it to a dealership.' }] }
+      { k: 'check', name: 'acknowledge', label: 'I agree that 60 Minute Car Deals can contact me by email or phone about this request.' }] }
 ];
 
 class Component extends DCLogic {
-  state = { step: 0, data: {}, error: '', done: false, clock: '--:--:--', isMobile: false, showBar: false };
+  state = { step: 0, data: {}, error: '', done: false, sending: false, clock: '--:--:--', isMobile: false, showBar: false };
   formRef = React.createRef();
   heroRef = React.createRef();
 
@@ -570,7 +593,7 @@ class Component extends DCLogic {
     const { step, data } = this.state;
     if (!this.valid(step, data)) return this.setState({ error: 'One quick answer needed above — then you’re straight through.' });
     if (step < SCREENS.length - 1) { this.persist(data, step + 1); return this.setState({ step: step + 1, error: '' }, () => this.toForm()); }
-    this.download();
+    this.submit();
   };
   back = () => this.setState(s => { const step = Math.max(0, s.step - 1); this.persist(s.data, step); return { step, error: '' }; }, () => this.toForm());
   toForm() { const el = this.formRef.current; if (!el) return; const top = el.getBoundingClientRect().top; if (top < 0) window.scrollTo({ top: window.scrollY + top - 64, behavior: 'smooth' }); }
@@ -579,19 +602,40 @@ class Component extends DCLogic {
     const cur = this.state.step;
     if (SCREENS[cur].auto) setTimeout(() => { if (this.state.step === cur && this.valid(cur, this.state.data)) this.next(); }, 300);
   }
-  download() {
-    const payload = { source: '60 Minute Car Deals website', createdAt: new Date().toISOString(), ...this.state.data };
+  async submit() {
+    if (this.state.sending) return;
+    const payload = { ...this.state.data };
     delete payload.acknowledge;
-    const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
-    const a = document.createElement('a'); a.href = url; a.download = 'vehicle-request.json';
-    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1500);
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    this.setState({ done: true });
+    this.setState({ sending: true, error: '' });
+    try {
+      const r = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const out = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        return this.setState({ sending: false, error: out.error || 'We could not send your request. Please try again.' });
+      }
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      // Conversion events fire only on a confirmed send.
+      try { if (window.fbq) window.fbq('track', 'Lead'); } catch (e) {}
+      try {
+        if (window.gtag) window.gtag('event', 'conversion', {
+          send_to: 'AW-17527160007/SlgWCPOkgKgcEMf5zKVB',
+          value: 1.0,
+          currency: 'USD'
+        });
+      } catch (e) {}
+      this.setState({ sending: false, done: true });
+    } catch (e) {
+      this.setState({ sending: false, error: 'Network problem — your answers are safe. Please try again.' });
+    }
   }
-  restart = () => this.setState({ done: false, step: 0, data: {}, error: '' });
+  restart = () => this.setState({ done: false, sending: false, step: 0, data: {}, error: '' });
 
   renderVals() {
-    const { step, data, error, done, clock, isMobile, showBar } = this.state;
+    const { step, data, error, done, sending, clock, isMobile, showBar } = this.state;
     const sc = SCREENS[step], last = step === SCREENS.length - 1;
     const fields = sc.fields.map(f => ({
       ...f, isText: f.k === 'text', isChoice: f.k === 'choice', isCheck: f.k === 'check',
@@ -607,8 +651,8 @@ class Component extends DCLogic {
       remaining: last ? 'Last one' : `${left} to go`,
       pct: `${((step + 1) / SCREENS.length) * 100}%`,
       showBack: step > 0, back: this.back, next: this.next, restart: this.restart,
-      nextLabel: last ? 'Download my request ↓' : 'Continue →',
-      note: last ? 'Nothing is sent anywhere. Your request downloads to your device only.' : (step >= 4 ? 'Answers saved on this device. You can leave and come back.' : 'Your answers stay on this device until you choose to download them.'),
+      nextLabel: sending ? 'Sending…' : (last ? 'Send my request →' : 'Continue →'),
+      note: last ? 'Sent straight to our team. No dealership calls until you say go.' : (step >= 4 ? 'Answers saved on this device. You can leave and come back.' : 'Your answers stay on this device until you send them.'),
       showMobileBar: isMobile && showBar,
       footerPad: isMobile ? '96px' : '32px'
     };
