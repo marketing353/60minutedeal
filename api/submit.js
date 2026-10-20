@@ -14,12 +14,33 @@ const CRM_TO = 'Sales@cjdrofsimivalley.edealerhub.com';
 // Human-readable copy, so a person sees the lead even if the CRM import stalls.
 const NOTIFY_TO = 'marketing@ridegroup.com';
 
-// Resend's shared sender. Works for testing, but only delivers to the address
-// that owns the Resend account — it will NOT reach the CRM. Verify a domain in
-// Resend and switch this to e.g. 'leads@ridegroup.com' before taking traffic.
-const FROM = '60 Minute Car Deals <onboarding@resend.dev>';
+// Sends from the verified domain, so mail reaches the CRM and the marketing
+// inbox rather than only the Resend account owner.
+const FROM = '60 Minute Car Deals <leads@usedcarssimivalley.com>';
 
 const PROVIDER = '60 Minute Car Deals';
+
+// Meta Conversions API. Server-side events survive ad blockers and ITP, which
+// cost the browser pixel a large share of conversions. Both sides send the same
+// event_id so Meta de-duplicates rather than double-counting.
+const META_PIXEL_ID = '572850585616970';
+const META_API_VERSION = 'v21.0';
+
+const crypto = require('crypto');
+const sha256 = (v) => crypto.createHash('sha256').update(String(v), 'utf8').digest('hex');
+
+// Meta requires values normalised before hashing, or the match simply fails.
+const norm = {
+  em: (v) => String(v).trim().toLowerCase(),
+  ph: (v) => {
+    const d = String(v).replace(/\D/g, '');
+    return d.length === 10 ? '1' + d : d;          // assume US when no country code
+  },
+  name: (v) => String(v).trim().toLowerCase().replace(/[^a-z]/g, ''),
+  ct: (v) => String(v).trim().toLowerCase().replace(/[^a-z]/g, ''),
+  st: (v) => String(v).trim().toLowerCase().replace(/[^a-z]/g, '').slice(0, 2),
+  zp: (v) => String(v).replace(/\D/g, '').slice(0, 5),
+};
 
 const FIELDS = [
   ['vehicle', 'Preferred vehicle'], ['alternative', 'Alternative vehicle'],
@@ -131,6 +152,49 @@ function buildAdf(c) {
   return L.join('\n');
 }
 
+async function sendMetaCapi(c, meta) {
+  const token = process.env.MetaCAPIToken || process.env.METACAPITOKEN || process.env.META_CAPI_TOKEN;
+  if (!token) { console.warn('MetaCAPIToken not set — skipping Conversions API'); return null; }
+
+  const n = splitName(c.name);
+  const user_data = {
+    em: [sha256(norm.em(c.email))],
+    ph: [sha256(norm.ph(c.phone))],
+    fn: [sha256(norm.name(n.first))],
+    ct: [sha256(norm.ct(c.city))],
+    st: [sha256(norm.st(c.region))],
+    zp: [sha256(norm.zp(c.postal))],
+    country: [sha256('us')],
+  };
+  if (n.last) user_data.ln = [sha256(norm.name(n.last))];
+
+  // Never hashed — Meta matches these as-is.
+  if (meta.fbp) user_data.fbp = meta.fbp;
+  if (meta.fbc) user_data.fbc = meta.fbc;
+  if (meta.ip) user_data.client_ip_address = meta.ip;
+  if (meta.ua) user_data.client_user_agent = meta.ua;
+
+  const event = {
+    event_name: 'Lead',
+    event_time: Math.floor(Date.now() / 1000),
+    action_source: 'website',
+    user_data,
+    custom_data: { value: 1.0, currency: 'USD', content_name: c.vehicle },
+  };
+  if (meta.eventId) event.event_id = meta.eventId;      // dedupe key vs the pixel
+  if (meta.pageUrl) event.event_source_url = meta.pageUrl;
+
+  const url = `https://graph.facebook.com/${META_API_VERSION}/${META_PIXEL_ID}/events`;
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ data: [event], access_token: token }),
+  });
+  const out = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(`Meta CAPI ${r.status}: ${JSON.stringify(out)}`);
+  return out;
+}
+
 async function sendEmail(key, payload) {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -224,10 +288,22 @@ module.exports = async (req, res) => {
     text,
   };
 
-  const [crm, notify] = await Promise.allSettled([
+  const meta = {
+    eventId: String(body.eventId || '').slice(0, 100),
+    fbp: String(body.fbp || '').slice(0, 200),
+    fbc: String(body.fbc || '').slice(0, 300),
+    pageUrl: String(body.pageUrl || '').slice(0, 500),
+    ip: String(req.headers['x-forwarded-for'] || '').split(',')[0].trim(),
+    ua: String(req.headers['user-agent'] || '').slice(0, 500),
+  };
+
+  const [crm, notify, capi] = await Promise.allSettled([
     sendEmail(key, crmEmail),
     sendEmail(key, notifyEmail),
+    sendMetaCapi(clean, meta),
   ]);
+
+  if (capi.status === 'rejected') console.error('Meta CAPI failed:', capi.reason && capi.reason.message);
 
   if (crm.status === 'rejected') console.error('ADF send to CRM failed:', crm.reason && crm.reason.message);
   if (notify.status === 'rejected') console.error('Notification send failed:', notify.reason && notify.reason.message);
@@ -238,5 +314,11 @@ module.exports = async (req, res) => {
     return res.status(502).json({ error: 'We could not send your request. Please try again.' });
   }
 
-  return res.status(200).json({ ok: true, crm: crm.status === 'fulfilled', notified: notify.status === 'fulfilled' });
+  // A CAPI failure never fails the lead — the lead is the email, not the pixel.
+  return res.status(200).json({
+    ok: true,
+    crm: crm.status === 'fulfilled',
+    notified: notify.status === 'fulfilled',
+    capi: capi.status === 'fulfilled',
+  });
 };

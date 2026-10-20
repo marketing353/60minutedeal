@@ -2,7 +2,7 @@
 
 Static landing page with an 8-step vehicle-request wizard. Deployed on Vercel.
 
-**Live:** https://60minutedeal.vercel.app
+**Live:** https://usedcarssimivalley.com
 
 ## How it works
 
@@ -60,9 +60,26 @@ every value, caps each answer at 500 characters, and silently accepts anything w
 `company` field set (honeypot). `reply_to` is the visitor's address, so replying from
 the inbox reaches them directly.
 
-`FROM` is currently Resend's shared `onboarding@resend.dev`, which **only delivers to
-the address that owns the Resend account**. Verify a domain in Resend and change `FROM`
-to e.g. `requests@ridegroup.com` before taking real traffic.
+`FROM` is `leads@usedcarssimivalley.com`, the verified Resend domain. It must stay on a
+verified domain — Resend's shared `onboarding@resend.dev` only delivers to the address
+that owns the Resend account, so the CRM email silently never arrives.
+
+## Meta Conversions API
+
+`sendMetaCapi()` posts a server-side `Lead` event to the Graph API. Server-side events
+survive ad blockers and ITP, which cost the browser pixel a large share of conversions.
+
+**Required env var: `METACAPITOKEN`** (the lookup also accepts `MetaCAPIToken` and
+`META_CAPI_TOKEN`, since Node env vars are case-sensitive and a casing mismatch would
+silently disable it). If it is absent the function logs a warning and skips the call —
+it never fails the lead.
+
+`index.html` generates one `eventId` per submission, sends it to the server **and** stages
+it for the pixel, so Meta de-duplicates the two events instead of counting two leads. The
+browser's `_fbp`/`_fbc` cookies are forwarded and sent unhashed, as Meta expects; email,
+phone, name, city, state, ZIP and country are SHA-256 hashed after normalisation
+(email lowercased, phone digits with country code, ZIP truncated to 5, state 2-letter,
+names stripped to letters). A CAPI failure is logged and never fails the lead.
 
 ## Conversion tracking
 
@@ -126,9 +143,8 @@ Pushes to `main` deploy automatically via the Vercel GitHub integration.
 
 ## Before launch
 
-- [ ] Point `og:url`, `og:image`, `canonical` (in `index.html`), `robots.txt`, and
-      `sitemap.xml` at the real custom domain once it is attached.
-- [ ] Verify a sending domain in Resend and update `FROM` in `api/submit.js`.
+- [ ] Attach usedcarssimivalley.com to the Vercel project — canonical, OG, robots.txt
+      and sitemap.xml already point there, so until the domain resolves those URLs 404.
 - [ ] Confirm `ResendAPIKEY` is set in Vercel for Production, Preview and Development.
 - [ ] Decide the consent position. There is no cookie banner, and Meta/Google tags load on
       first paint before any consent. Meta's Business Tools Terms put the notice-and-consent

@@ -6,7 +6,7 @@
 
 <title>60 Minute Car Deals — Stop shopping. Start driving.</title>
 <meta name="description" content="Tell us what you want to drive in 60 seconds. We match it to real vehicles and real numbers across California — no credit check, trade-ins welcome, and no dealership calls until you say go.">
-<link rel="canonical" href="https://60minutedeal.vercel.app/">
+<link rel="canonical" href="https://usedcarssimivalley.com/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0d1a13">
 
@@ -14,14 +14,14 @@
 <meta property="og:site_name" content="60 Minute Car Deals">
 <meta property="og:title" content="60 Minute Car Deals — Stop shopping. Start driving.">
 <meta property="og:description" content="Tell us what you want to drive in 60 seconds. We match it to real vehicles and real numbers across California — no credit check, trade-ins welcome, and no dealership calls until you say go.">
-<meta property="og:url" content="https://60minutedeal.vercel.app/">
-<meta property="og:image" content="https://60minutedeal.vercel.app/og.svg">
+<meta property="og:url" content="https://usedcarssimivalley.com/">
+<meta property="og:image" content="https://usedcarssimivalley.com/og.svg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="60 Minute Car Deals — Stop shopping. Start driving.">
 <meta name="twitter:description" content="Tell us what you want to drive in 60 seconds. We match it to real vehicles and real numbers across California — no credit check, trade-ins welcome, and no dealership calls until you say go.">
-<meta name="twitter:image" content="https://60minutedeal.vercel.app/og.svg">
+<meta name="twitter:image" content="https://usedcarssimivalley.com/og.svg">
 
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./favicon.svg">
@@ -617,6 +617,17 @@ class Component extends DCLogic {
     if (this.state.sending) return;
     const payload = { ...this.state.data };
     delete payload.acknowledge;
+    const eventId = 'lead.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
+    const cookie = (k) => {
+      try {
+        const m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)'));
+        return m ? decodeURIComponent(m[1]) : '';
+      } catch (e) { return ''; }
+    };
+    payload.eventId = eventId;
+    payload.fbp = cookie('_fbp');
+    payload.fbc = cookie('_fbc');
+    payload.pageUrl = location.href;
     this.setState({ sending: true, error: '' });
     try {
       const r = await fetch('/api/submit', {
@@ -642,9 +653,9 @@ class Component extends DCLogic {
           em: payload.email, ph: payload.phone,
           fn: nm[0] || '', ln: nm.length > 1 ? nm[nm.length - 1] : '',
           ct: payload.city, st: payload.region, zp: payload.postal, country: 'us',
-          // Shared id so a later Conversions API send can be de-duplicated
-          // against this browser event instead of double-counted.
-          eventId: 'lead.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10)
+          // Same id the server sent to the Conversions API, so Meta treats the
+          // two as one event instead of two leads.
+          eventId: eventId
         }));
       } catch (e) {}
       // The in-page confirmation stays as a fallback for the rare case where
