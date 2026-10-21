@@ -325,6 +325,10 @@ WIZARD = {
     "'Where are you shopping?'": "'¿ Dónde estás buscando?'",
     "'So we narrow the search to somewhere you’d actually drive to.'":
         "'Para acotar la búsqueda a un lugar al que de verdad irías.'",
+    "'Street address'": "'Dirección'",
+    "'123 Main St'": "'Calle y número'",
+    "'Date of birth (optional — helps us pre-check financing)'":
+        "'Fecha de nacimiento (opcional — nos ayuda a revisar el financiamiento)'",
     "'City'": "'Ciudad'",
     "'Your city'": "'Tu ciudad'",
     "'State or province'": "'Estado'",

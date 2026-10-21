@@ -40,6 +40,7 @@ const norm = {
   ct: (v) => String(v).trim().toLowerCase().replace(/[^a-z]/g, ''),
   st: (v) => String(v).trim().toLowerCase().replace(/[^a-z]/g, '').slice(0, 2),
   zp: (v) => String(v).replace(/\D/g, '').slice(0, 5),
+  db: (v) => String(v).replace(/\D/g, '').slice(0, 8),   // YYYYMMDD
 };
 
 const FIELDS = [
@@ -49,13 +50,14 @@ const FIELDS = [
   ['down', 'Down payment'], ['timeline', 'Timeline'],
   ['employment', 'Employment'], ['tenure', 'Time in situation'],
   ['income', 'Income range'], ['credit', 'Credit range'],
-  ['experience', 'Financed before'], ['city', 'City'],
+  ['experience', 'Financed before'], ['street', 'Street address'], ['city', 'City'],
   ['region', 'State / province'], ['postal', 'ZIP / postal code'],
-  ['name', 'Name'], ['email', 'Email'], ['phone', 'Phone'],
+  ['name', 'Name'], ['email', 'Email'], ['phone', 'Phone'], ['dob', 'Date of birth'],
 ];
 
 // Qualifying detail that has no dedicated ADF element goes into <comments>.
 const COMMENT_FIELDS = [
+  ['dob', 'Date of birth'],
   ['alternative', 'Alternative vehicle'], ['trade', 'Trade-in'],
   ['budget', 'Target monthly payment'], ['down', 'Down payment'],
   ['purchase', 'Purchase method'], ['condition', 'Condition'],
@@ -143,6 +145,7 @@ function buildAdf(c) {
   L.push(`        <email>${esc(c.email)}</email>`);
   L.push(`        <phone type="voice" time="nopreference">${esc(c.phone)}</phone>`);
   L.push('        <address type="home">');
+  if (c.street) L.push(`          <street line="1">${esc(c.street)}</street>`);
   L.push(`          <city>${esc(c.city)}</city>`);
   L.push(`          <regioncode>${esc(c.region)}</regioncode>`);
   L.push(`          <postalcode>${esc(c.postal)}</postalcode>`);
@@ -175,6 +178,7 @@ async function sendMetaCapi(c, meta) {
     country: [sha256('us')],
   };
   if (n.last) user_data.ln = [sha256(norm.name(n.last))];
+  if (norm.db(c.dob).length === 8) user_data.db = [sha256(norm.db(c.dob))];
 
   // Never hashed — Meta matches these as-is.
   if (meta.fbp) user_data.fbp = meta.fbp;
@@ -238,7 +242,7 @@ module.exports = async (req, res) => {
   // bot sees success and does not retry.
   if (body.company) return res.status(200).json({ ok: true });
 
-  const required = ['vehicle', 'budget', 'down', 'city', 'region', 'postal', 'name', 'email', 'phone'];
+  const required = ['vehicle', 'budget', 'down', 'street', 'city', 'region', 'postal', 'name', 'email', 'phone'];
   const missing = required.filter((f) => !String(body[f] || '').trim());
   if (missing.length) return res.status(400).json({ error: 'Some answers are missing.', missing });
 

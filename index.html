@@ -566,9 +566,10 @@ const SCREENS = [
   { title: 'How would you describe your credit?', sub: 'An estimate is fine — or discuss it later.', auto: true,
     fields: [C('credit', 'Estimated credit range', ['Excellent', 'Good', 'Fair', 'Rebuilding', 'Not sure', 'Prefer to discuss']), C('experience', 'Have you financed or leased before?', ['Yes', 'First-time buyer'])] },
   { title: 'Where are you shopping?', sub: 'So we narrow the search to somewhere you’d actually drive to.',
-    fields: [T('city', 'City', 'Your city', 'text', true, 'text', 'address-level2'), T('region', 'State or province', 'State or province', 'text', true, 'text', 'address-level1'), T('postal', 'ZIP or postal code', 'ZIP or postal code', 'text', true, 'numeric', 'postal-code')] },
+    fields: [T('street', 'Street address', '123 Main St', 'text', true, 'text', 'street-address'), T('city', 'City', 'Your city', 'text', true, 'text', 'address-level2'), T('region', 'State or province', 'State or province', 'text', true, 'text', 'address-level1'), T('postal', 'ZIP or postal code', 'ZIP or postal code', 'text', true, 'numeric', 'postal-code')] },
   { title: 'Last step — where do we send your matches?', sub: 'You’re one click from a finished, personal vehicle request.',
     fields: [T('name', 'Full name', 'Your name', 'text', true, 'text', 'name'), T('email', 'Email address', 'you@example.com', 'email', true, 'email', 'email'), T('phone', 'Phone number', 'Your phone number', 'tel', true, 'tel', 'tel'),
+      T('dob', 'Date of birth (optional — helps us pre-check financing)', '', 'date', false, 'text', 'bday'),
       { k: 'check', name: 'acknowledge', label: 'I agree that 60 Minute Car Deals can contact me by email or phone about this request.' }] }
 ];
 
@@ -676,6 +677,7 @@ class Component extends DCLogic {
           em: payload.email, ph: payload.phone,
           fn: nm[0] || '', ln: nm.length > 1 ? nm[nm.length - 1] : '',
           ct: payload.city, st: payload.region, zp: payload.postal, country: 'us',
+          db: String(payload.dob || '').replace(/-/g, ''),
           // Same id the server sent to the Conversions API, so Meta treats the
           // two as one event instead of two leads.
           eventId: eventId

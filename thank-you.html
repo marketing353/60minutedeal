@@ -43,6 +43,9 @@
   } catch (e) {}
   window.__leadEventId = MATCH.eventId || '';
   delete MATCH.eventId;
+  // Drop blanks — date of birth is optional, and handing fbq an empty value
+  // hashes nothing useful and can hurt the match rather than help it.
+  for (var k in MATCH) { if (!MATCH[k]) delete MATCH[k]; }
 
   fbq('set', 'autoConfig', true, '572850585616970');
   fbq('init', '572850585616970', MATCH);
@@ -124,6 +127,21 @@
   .brand span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;
               background:#d6ff38;color:#0d1a13;font-size:14px;letter-spacing:-.04em}
   footer{padding:0 20px 28px;text-align:center;font-size:12.5px;color:#8fa58c}
+
+  /* testimonial wall */
+  .wrap{flex:none}
+  .voices{padding:8px 20px 56px}
+  .voices-inner{max-width:1120px;margin:0 auto}
+  .voices h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    font-size:clamp(24px,5.5vw,34px);letter-spacing:-.03em;margin:0 0 6px;text-align:center;color:#fff}
+  .voices-sub{margin:0 0 24px;text-align:center;font-size:14.5px;color:#8fa58c}
+  /* CSS columns rather than grid: screenshots vary a lot in height and this
+     packs them without leaving tall gaps. */
+  .voices-grid{columns:1;column-gap:14px}
+  @media(min-width:720px){.voices-grid{columns:2}}
+  @media(min-width:1080px){.voices-grid{columns:3}}
+  .voices-grid img{display:block;width:100%;height:auto;margin:0 0 14px;
+    border-radius:12px;background:#fff;break-inside:avoid}
 </style>
 </head>
 <body>
@@ -143,6 +161,39 @@
     <a class="home" href="/">Back to 60 Minute Car Deals</a>
   </div>
 </main>
+
+<section class="voices">
+  <div class="voices-inner">
+    <h2>What people are saying</h2>
+    <p class="voices-sub">Unedited comments from real customers.</p>
+    <div class="voices-grid">
+      <img loading="lazy" decoding="async" width="500" height="128" src="./img/testimonials/testimonial-02.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="336" src="./img/testimonials/testimonial-03.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="500" height="89" src="./img/testimonials/testimonial-04.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="362" src="./img/testimonials/testimonial-05.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="500" height="98" src="./img/testimonials/testimonial-06.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="392" src="./img/testimonials/testimonial-07.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="396" src="./img/testimonials/testimonial-08.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="516" src="./img/testimonials/testimonial-09.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="540" src="./img/testimonials/testimonial-10.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="334" src="./img/testimonials/testimonial-11.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="352" src="./img/testimonials/testimonial-12.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="642" src="./img/testimonials/testimonial-13.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="455" src="./img/testimonials/testimonial-14.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="334" src="./img/testimonials/testimonial-15.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="362" src="./img/testimonials/testimonial-17.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="334" src="./img/testimonials/testimonial-19.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="333" src="./img/testimonials/testimonial-20.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="810" src="./img/testimonials/testimonial-21.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="334" src="./img/testimonials/testimonial-22.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="500" height="253" src="./img/testimonials/testimonial-24.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="516" src="./img/testimonials/testimonial-29.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="760" src="./img/testimonials/testimonial-33.webp" alt="Customer comment about 60 Minute Car Deals">
+      <img loading="lazy" decoding="async" width="1000" height="334" src="./img/testimonials/testimonial-40.webp" alt="Customer comment about 60 Minute Car Deals">
+    </div>
+  </div>
+</section>
+
 
 <footer>No payment. No credit pull. No obligation.</footer>
 
