@@ -66,6 +66,40 @@ const COMMENT_FIELDS = [
   ['credit', 'Credit range'], ['experience', 'Financed before'],
 ];
 
+// Click ids and campaign tags, in the order a human wants to read them.
+const SOURCE_PARAMS = [
+  'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+  'gclid', 'gbraid', 'wbraid', 'fbclid', 'msclkid', 'ttclid',
+];
+
+// Turns the landing URL into readable lines for the CRM. CDK shows <comments>
+// as plain text, so a raw URL alone is close to unusable for a salesperson.
+function sourceLines(landingUrl, referrer) {
+  const out = [];
+  let parsed = null;
+  try { parsed = new URL(landingUrl); } catch (e) { /* ignore */ }
+
+  if (parsed) {
+    out.push('LANDED ON: ' + parsed.origin + parsed.pathname);
+    for (const key of SOURCE_PARAMS) {
+      const v = parsed.searchParams.get(key);
+      if (v) out.push('  ' + key + ': ' + v.slice(0, 200));
+    }
+    // Anything the dealer added that is not on the known list.
+    for (const [k, v] of parsed.searchParams.entries()) {
+      if (!SOURCE_PARAMS.includes(k) && v) out.push('  ' + k + ': ' + v.slice(0, 200));
+    }
+  } else if (landingUrl) {
+    out.push('LANDED ON: ' + landingUrl);
+  }
+
+  if (referrer) {
+    try { out.push('REFERRER: ' + new URL(referrer).hostname); }
+    catch (e) { out.push('REFERRER: ' + referrer.slice(0, 200)); }
+  }
+  return out;
+}
+
 const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -119,7 +153,8 @@ function buildAdf(c) {
 
   // Lead the comments with the language so whoever picks this up in CDK knows
   // to call back in Spanish.
-  const comments = (c.lang === 'es'
+  const comments = sourceLines(c.landingUrl, c.referrer)
+    .concat(c.lang === 'es'
       ? ['IDIOMA / LANGUAGE: Spanish — customer submitted the Spanish form']
       : [])
     .concat(COMMENT_FIELDS
@@ -256,6 +291,8 @@ module.exports = async (req, res) => {
   for (const [k] of FIELDS) clean[k] = String(body[k] == null ? '' : body[k]).slice(0, 500).trim();
 
   clean.lang = String(body.lang || 'en').slice(0, 5);
+  clean.landingUrl = String(body.landingUrl || body.pageUrl || '').slice(0, 1000);
+  clean.referrer = String(body.referrer || '').slice(0, 500);
   const adf = buildAdf(clean);
 
   const rows = FIELDS
@@ -265,6 +302,10 @@ module.exports = async (req, res) => {
       `<td style="padding:7px 0;font-weight:600;color:#0d1a13">${esc(clean[k])}</td></tr>`)
     .join('');
 
+  const srcRows = sourceLines(clean.landingUrl, clean.referrer)
+    .map((l) => `<div style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:#3b4c41;white-space:pre">${esc(l)}</div>`)
+    .join('');
+
   const html =
     `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:600px">` +
     `<h2 style="margin:0 0 4px;color:#0d1a13">New vehicle request</h2>` +
@@ -272,10 +313,17 @@ module.exports = async (req, res) => {
     `${esc(clean.name)} &middot; ${esc(clean.city)}, ${esc(clean.region)} &middot; ` +
     `${esc(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }))} PT</p>` +
     `<table style="border-collapse:collapse;font-size:14px;width:100%">${rows}</table>` +
+    (srcRows
+      ? `<div style="margin:20px 0 0;padding:14px 16px;background:#f5f8ef;border-radius:10px">` +
+        `<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4c6410;margin-bottom:8px">Lead source</div>` +
+        srcRows + `</div>`
+      : '') +
     `<p style="margin:18px 0 0;color:#8a978e;font-size:12px">` +
     `An ADF/XML copy was sent to ${esc(CRM_TO)}.</p></div>`;
 
-  const text = FIELDS.filter(([k]) => clean[k]).map(([k, l]) => `${l}: ${clean[k]}`).join('\n');
+  const text = FIELDS.filter(([k]) => clean[k]).map(([k, l]) => `${l}: ${clean[k]}`)
+    .concat(sourceLines(clean.landingUrl, clean.referrer))
+    .join('\n');
 
   // The CRM email carries the ADF as its plain-text body — ILM parsers read the
   // body, and an HTML part can break them — plus an .xml attachment for imports

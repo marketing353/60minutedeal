@@ -161,6 +161,31 @@ hreflang alternates and the language switcher (there is no Spanish variant of
 it yet) and carries an FCA US LLC trademark notice, since it names four marques
 while identifying no dealership.
 
+## Lead source attribution
+
+Every submission carries where the lead came from. On first page load the entry
+URL and referrer are stored in `sessionStorage` under `cmcd_lead_source`, and
+sent with the lead as `landingUrl` and `referrer`.
+
+Capturing at load rather than at submit matters: the CTAs are in-page anchors
+(`#request`), so reading `location.href` at submit time would append `#request`,
+and a language switch would lose the query string altogether — taking the
+campaign attribution with it.
+
+`sourceLines()` in `api/submit.js` turns that into readable lines at the top of
+the ADF `<comments>` and in a "Lead source" block in the notification email:
+
+    LANDED ON: https://usedcarssimivalley.com/ram-jeep-dodge-chrysler
+      utm_source: google
+      utm_medium: cpc
+      utm_campaign: ram-oct
+      gclid: Cj0KCQabc123
+    REFERRER: www.google.com
+
+Known keys (`utm_*`, `gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`, `ttclid`)
+are listed first in a fixed order; **any other parameter you invent is still
+included**, so you can tag links however you like without changing code.
+
 ## Local development
 
     node dev-server.js        # http://localhost:3000
