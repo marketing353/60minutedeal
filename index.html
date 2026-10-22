@@ -550,7 +550,6 @@ input::placeholder{color:#8a978e}
 const KEY = 'cmcd_request_v3';
 const LEAD_KEY = 'cmcd_lead_ok';
 const MATCH_KEY = 'cmcd_lead_match';
-const SRC_KEY = 'cmcd_lead_source';
 const T = (name, label, ph, type, req, mode, ac) => ({ k: 'text', name, label, ph: ph || '', type: type || 'text', req: req !== false, mode: mode || 'text', ac: ac || 'off' });
 const C = (name, label, options) => ({ k: 'choice', name, label, options });
 const SCREENS = [
@@ -578,14 +577,6 @@ class Component extends DCLogic {
   state = { step: 0, data: {}, error: '', done: false, sending: false, clock: '--:--:--', isMobile: false, showBar: false };
 
   componentDidMount() {
-    try {
-      if (!sessionStorage.getItem(SRC_KEY)) {
-        sessionStorage.setItem(SRC_KEY, JSON.stringify({
-          url: location.href,
-          ref: document.referrer || ''
-        }));
-      }
-    } catch (e) {}
     try { const s = localStorage.getItem(KEY); if (s) { const p = JSON.parse(s); this.setState({ data: p.data || {}, step: p.step || 0 }); } } catch (e) {}
     this.tick(); this.timer = setInterval(() => this.tick(), 1000);
     this.onResize = () => this.setState({ isMobile: window.innerWidth < 760 });
@@ -661,13 +652,6 @@ class Component extends DCLogic {
     payload.fbp = cookie('_fbp');
     payload.fbc = cookie('_fbc');
     payload.pageUrl = location.href;
-    try {
-      const src = JSON.parse(sessionStorage.getItem(SRC_KEY) || '{}');
-      payload.landingUrl = src.url || location.href;
-      payload.referrer = src.ref || '';
-    } catch (e) {
-      payload.landingUrl = location.href;
-    }
     this.setState({ sending: true, error: '' });
     try {
       const r = await fetch('/api/submit', {
